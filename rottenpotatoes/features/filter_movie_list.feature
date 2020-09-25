@@ -28,6 +28,20 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step to "submit" the search form on the homepage
   # enter step(s) to ensure that PG and R movies are visible
   # enter step(s) to ensure that other movies are not visible
-
+  Given I am on the home page
+  When I check the following ratings: PG, R
+  When I press "Refresh" button
+  Then I should see the following movies: The Incredibles, The Terminator
+  And I should not see the following movies: Chocolat, Chicken Run
+  
+  When I uncheck the following ratings: G, NC-17, PG, PG-13, R
+  When I press "Refresh" button
+  Then I should see the following movies: The Incredibles, The Terminator
+  And I should not see the following movies: Chocolat, Chicken Run
+  
 Scenario: all ratings selected
   # see assignment
+  Given I am on the RottenPotatoes home page
+  When I check the following ratings: G, NC-17, PG, PG-13, R
+  And I press "Refresh" button
+  Then I should see all the movies
